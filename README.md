@@ -1,119 +1,88 @@
-markdown# 🚗 DriveShare — Demo IoT
+# DriveShare — Demo IoT
 
-Demo de telemetría IoT para la plataforma DriveShare, un sistema de alquiler de vehículos entre particulares. Simula un dispositivo instalado en un auto que envía datos en tiempo real (GPS, velocidad, temperatura) durante una reserva activa.
+## Resumen
 
----
+Demo de telemetría IoT que muestra cómo un dispositivo instalado en un vehículo envía datos en tiempo real (GPS, velocidad, temperatura) a través de MQTT hacia un servidor Node.js, que luego expone la información a un dashboard web.
 
-## 🏗️ Arquitectura
-Simulador Python → Broker MQTT → Servidor Node.js → Dashboard Web
-(dispositivo IoT)   (Mosquitto)    (Express + WS)    (HTML/CSS/JS)
+Este repositorio contiene un simulador de dispositivo, la lógica del servidor y una interfaz web de monitoreo pensada para uso educativo y demostraciones.
 
----
+## Arquitectura
 
-## 📁 Estructura del proyecto
-Demo-Individual/
-├── simulator/
-│   └── device_simulator.py   # Simula el dispositivo IoT del vehículo
-├── server/
-│   ├── index.js              # Arranca el servidor
-│   ├── mqtt.js               # Lógica de conexión MQTT
-│   ├── routes.js             # Endpoints REST
-│   ├── storage.js            # Lectura y escritura de datos
-│   ├── telemetria.json       # Base de datos (generado automáticamente)
-│   └── package.json          # Dependencias Node.js
-└── dashboard/
-├── index.html            # Interfaz principal
-├── style.css             # Estilos
-├── app.js                # Lógica del dashboard
-└── config.js             # Configuración (URLs, constantes)
+Simulador (Python) → Broker MQTT (Mosquitto) → Servidor (Node.js + WebSocket) → Dashboard (HTML/CSS/JS)
 
----
+## Estructura del proyecto
 
-## ✅ Requisitos previos
-
-| Herramienta | Versión recomendada | Descarga |
-|-------------|-------------------|---------|
-| Node.js     | 18 o superior     | https://nodejs.org |
-| Python      | 3.8 o superior    | https://python.org |
-| Mosquitto   | 2.x               | https://mosquitto.org/download |
-
----
-
-## ⚙️ Instalación
-
-### 1. Broker MQTT (Mosquitto)
-
-En Windows, Mosquitto se instala como servicio automáticamente. Verifica que esté corriendo:
-
-```bash
-Get-Service mosquitto
-# Debe mostrar: Running
+```
+IoT-Demo/
+├─ simulator/
+│  └─ device_simulator.py      # Simulador del dispositivo (publica por MQTT)
+├─ server/
+│  ├─ index.js                 # Servidor Express + WS
+│  ├─ mqtt.js                  # Conexión y manejo MQTT
+│  ├─ routes.js                # Endpoints REST
+│  ├─ storage.js               # Persistencia en telemetria.json
+│  └─ package.json
+└─ dashboard/
+   ├─ index.html               # Interfaz web
+   ├─ style.css                # Estilos del dashboard
+   ├─ app.js                   # Lógica frontend (WebSocket, mapa)
+   └─ config.js                # URLs y constantes del dashboard
 ```
 
-Si no está corriendo:
-```bash
-Start-Service mosquitto
-```
+## Requisitos
 
-### 2. Servidor Node.js
+- Node.js 18+
+- Python 3.8+
+- Mosquitto (opcional, para pruebas locales)
+
+## Instalación rápida
+
+1. Instalar dependencias del servidor:
 
 ```bash
 cd server
 npm install
 ```
 
-### 3. Simulador Python
+2. (Opcional) Instalar dependencia para el simulador:
 
 ```bash
 pip install paho-mqtt
 ```
 
----
+## Ejecución
 
-## 🚀 Cómo correr la demo
+Abrir tres terminales o pestañas:
 
-Necesitas **3 terminales** abiertas simultáneamente:
+- Terminal A — Servidor:
 
-### Terminal 1 — Servidor
 ```bash
 cd server
 node index.js
 ```
-Deberías ver:
-✅ Base de datos lista: telemetria.json
-🚀 Servidor en http://localhost:3000
-✅ Conectado al broker MQTT
-📡 Suscrito al topic: driveshare/vehiculo/+/telemetria
 
-### Terminal 2 — Simulador
+- Terminal B — Simulador:
+
 ```bash
 cd simulator
 python device_simulator.py
 ```
-Deberías ver:
-✅ Conectado al broker MQTT en localhost:1883
-🚗 Vehículo: Toyota Corolla 2022 | Reserva: RES-001
-[2026-05-14T18:15:27] GPS(-12.045, -77.041) | 6.5 km/h | Temp: 81.3°C | Km: 0.01
 
-### Terminal 3 — Dashboard
-Abre en tu browser:
-http://localhost:3000/index.html
+- Terminal C — Dashboard:
 
----
+Abrir en el navegador: http://localhost:3000/index.html
 
-## 🌐 Endpoints disponibles
+Si todo está correcto, el servidor mostrará mensajes de conexión al broker MQTT y el dashboard recibirá telemetría en tiempo real.
 
-| Método | URL | Descripción |
-|--------|-----|-------------|
-| GET | `/api/historial` | Últimas 50 lecturas de telemetría |
-| GET | `/api/historial?limite=10` | Últimas N lecturas |
-| GET | `/api/resumen/RES-001` | Resumen de la reserva RES-001 |
+## Endpoints principales
 
----
+- `GET /api/historial` — Últimas lecturas (por defecto 50)
+- `GET /api/historial?limite=N` — Últimas N lecturas
+- `GET /api/resumen/:reservaId` — Resumen para una reserva
 
-## 📡 Datos que envía el dispositivo
+## Formato de telemetría
 
-Cada 3 segundos el simulador publica en el topic `driveshare/vehiculo/ABC-123/telemetria`:
+Ejemplo del mensaje publicado por el simulador:
 
 ```json
 {
@@ -132,20 +101,15 @@ Cada 3 segundos el simulador publica en el topic `driveshare/vehiculo/ABC-123/te
 }
 ```
 
----
+## Configuración
 
-## 🔧 Configuración
+- Editar valores en `server` y `simulator` según su entorno (puertos, broker MQTT).
+- Ajustes del dashboard en `dashboard/config.js` (URLs y reconexión).
 
-Para cambiar puertos o URLs edita estos archivos:
+## Contribuir
 
-- **Servidor:** constantes al inicio de `server/mqtt.js` e `server/index.js`
-- **Simulador:** constantes al inicio de `simulator/device_simulator.py`
-- **Dashboard:** `dashboard/config.js`
+Pull requests y issues son bienvenidos. Mantén las contribuciones pequeñas y documentadas.
 
----
+## Autor
 
-## 👤 Autor
-
-Juan Pablo Avalos — Módulo de Pagos  
-Curso: Arquitectura de Software  
-Universidad de Lima — 2025
+Juan Pablo Avalos — Componente Individual
