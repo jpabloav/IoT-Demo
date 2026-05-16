@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>DriveShare — Monitor IoT</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+    <h1>🚗 DriveShare — Monitor IoT</h1>
+    <span id="badge-estado" class="badge offline">Sin conexión</span>
+    <span id="timestamp"></span>
+</header>
+
+<div class="info-box">
+    <div class="item">Reserva: <strong id="val-reserva">—</strong></div>
+    <div class="item">Vehículo: <strong id="val-vehiculo">—</strong></div>
+    <div class="item">Arrendatario: <strong id="val-arrendatario">—</strong></div>
+    <div class="item">Propietario: <strong id="val-propietario">—</strong></div>
+</div>
+
+    <div class="grid">
+    <div class="card">
+        <div class="label">Velocidad</div>
+        <div class="value"><span id="val-velocidad">—</span><span class="unit">km/h</span></div>
+    </div>
+    <div class="card">
+        <div class="label">Temperatura motor</div>
+        <div class="value"><span id="val-temp">—</span><span class="unit">°C</span></div>
+    </div>
+    <div class="card">
+        <div class="label">Km recorridos</div>
+        <div class="value"><span id="val-km">—</span><span class="unit">km</span></div>
+    </div>
+    <div class="card">
+        <div class="label">Motor</div>
+        <div class="value" id="val-motor">—</div>
+    </div>
+    <div class="card">
+        <div class="label">Ubicación GPS</div>
+        <div class="value" style="font-size:14px" id="val-gps">—</div>
+    </div>
+    <div class="card" id="card-alerta">
+        <div class="label">Zona</div>
+        <div class="value" id="val-zona">—</div>
+    </div>
+</div>
+
+<div class="section-title">Últimas lecturas</div>
+<div class="tabla-mapa-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Timestamp</th>
+        <th>Velocidad</th>
+        <th>Temp. motor</th>
+        <th>Km</th>
+        <th>Motor</th>
+        <th>Zona</th>
+      </tr>
+    </thead>
+    <tbody id="tabla-historial">
+      <tr><td colspan="6" style="color:#475569;text-align:center">Esperando datos...</td></tr>
+    </tbody>
+  </table>
+
+  <div class="mapa-container">
+    <div class="label" style="margin-bottom: 8px;">Ubicación en tiempo real</div>
+    <div id="mapa"></div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
