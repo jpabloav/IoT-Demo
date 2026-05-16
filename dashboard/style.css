@@ -238,3 +238,24 @@ tr:hover td {
   background: #162030 !important;
   color: #ffffff !important;
 }
+
+/* ─── Botón centrar mapa ─────────────────────────────────────────────────── */
+.btn-centrar {
+  width: 32px;
+  height: 32px;
+  background: #111827;
+  color: #3b9eff;
+  border: 1px solid #1e2d40;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.btn-centrar:hover {
+  background: #162030;
+  color: #ffffff;
+}

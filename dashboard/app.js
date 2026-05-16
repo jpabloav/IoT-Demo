@@ -36,19 +36,7 @@ function iniciarMapa(lat, lng) {
         const btn = L.DomUtil.create("button");
         btn.innerHTML = "↗";
         btn.title = "Centrar en vehículo";
-        btn.style.cssText = `
-            width: 32px; height: 32px;
-            background: #111827;
-            color: #3b9eff;
-            border: 1px solid #1e2d40;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-        `;
+        btn.className = "btn-centrar";
         btn.onclick = function () {
             if (marcador) mapa.setView(marcador.getLatLng(), 16);
         };
