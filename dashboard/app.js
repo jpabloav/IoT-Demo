@@ -4,20 +4,68 @@ let mapa     = null;
 let marcador = null;
 
 function iniciarMapa(lat, lng) {
-  mapa = L.map("mapa").setView([lat, lng], 14);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap"
-  }).addTo(mapa);
-  marcador = L.marker([lat, lng]).addTo(mapa);
+    mapa = L.map("mapa", {
+        zoomControl: true,
+    }).setView([lat, lng], 16);
+
+    // Tema oscuro de CARTO
+    L.tileLayer("https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png", {
+        maxZoom: 20,
+    }).addTo(mapa);
+
+    // Marcador personalizado azul
+    const icono = L.divIcon({
+        className: "",
+        html: `<div style="
+        width: 14px; height: 14px;
+        background: #3b9eff;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 0 8px rgba(59,158,255,0.8);
+        "></div>`,
+        iconSize: [14, 14],
+        iconAnchor: [7, 7],
+    });
+
+    marcador = L.marker([lat, lng], { icon: icono }).addTo(mapa);
+
+    // Botón centrar (flecha) arriba a la derecha
+    const BtnCentrar = L.Control.extend({
+        options: { position: "topright" },
+        onAdd: function () {
+        const btn = L.DomUtil.create("button");
+        btn.innerHTML = "↗";
+        btn.title = "Centrar en vehículo";
+        btn.style.cssText = `
+            width: 32px; height: 32px;
+            background: #111827;
+            color: #3b9eff;
+            border: 1px solid #1e2d40;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        `;
+        btn.onclick = function () {
+            if (marcador) mapa.setView(marcador.getLatLng(), 16);
+        };
+        return btn;
+        },
+    });
+
+    new BtnCentrar().addTo(mapa);
 }
 
 function actualizarMapa(lat, lng) {
-  if (!mapa) {
-    iniciarMapa(lat, lng);
-  } else {
-    marcador.setLatLng([lat, lng]);
-    mapa.setView([lat, lng]);
-  }
+    if (!mapa) {
+        iniciarMapa(lat, lng);
+    } else {
+        marcador.setLatLng([lat, lng]);
+        mapa.setView([lat, lng]);
+    }
 }
 
 function conectar() {
