@@ -51168,5 +51168,73 @@
     "temp_motor_c": 94.2,
     "km_recorridos": 4.76,
     "alerta_zona": false
+  },
+  {
+    "reserva_id": "RES-001",
+    "vehiculo_id": "ABC-123",
+    "arrendatario": "Erik Huaroc",
+    "propietario": "Juan Pablo",
+    "modelo": "Toyota Corolla 2022",
+    "timestamp": "2026-05-16T15:28:36",
+    "gps": {
+      "lat": -12.047515,
+      "lng": -77.049489
+    },
+    "velocidad_kmh": 47.2,
+    "motor_encendido": true,
+    "temp_motor_c": 93.2,
+    "km_recorridos": 4.8,
+    "alerta_zona": false
+  },
+  {
+    "reserva_id": "RES-001",
+    "vehiculo_id": "ABC-123",
+    "arrendatario": "Erik Huaroc",
+    "propietario": "Juan Pablo",
+    "modelo": "Toyota Corolla 2022",
+    "timestamp": "2026-05-16T15:28:39",
+    "gps": {
+      "lat": -12.045623,
+      "lng": -77.047725
+    },
+    "velocidad_kmh": 40.6,
+    "motor_encendido": true,
+    "temp_motor_c": 89.1,
+    "km_recorridos": 4.84,
+    "alerta_zona": false
+  },
+  {
+    "reserva_id": "RES-001",
+    "vehiculo_id": "ABC-123",
+    "arrendatario": "Erik Huaroc",
+    "propietario": "Juan Pablo",
+    "modelo": "Toyota Corolla 2022",
+    "timestamp": "2026-05-16T15:28:42",
+    "gps": {
+      "lat": -12.046165,
+      "lng": -77.047638
+    },
+    "velocidad_kmh": 43,
+    "motor_encendido": true,
+    "temp_motor_c": 89.2,
+    "km_recorridos": 4.87,
+    "alerta_zona": false
+  },
+  {
+    "reserva_id": "RES-001",
+    "vehiculo_id": "ABC-123",
+    "arrendatario": "Erik Huaroc",
+    "propietario": "Juan Pablo",
+    "modelo": "Toyota Corolla 2022",
+    "timestamp": "2026-05-16T15:28:45",
+    "gps": {
+      "lat": -12.045824,
+      "lng": -77.047497
+    },
+    "velocidad_kmh": 45,
+    "motor_encendido": true,
+    "temp_motor_c": 89.7,
+    "km_recorridos": 4.91,
+    "alerta_zona": false
   }
 ]
