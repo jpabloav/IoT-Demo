@@ -106,9 +106,7 @@ Ejemplo del mensaje publicado por el simulador:
 - Editar valores en `server` y `simulator` según su entorno (puertos, broker MQTT).
 - Ajustes del dashboard en `dashboard/config.js` (URLs y reconexión).
 
-## Contribuir
 
-Pull requests y issues son bienvenidos. Mantén las contribuciones pequeñas y documentadas.
 
 ## Autor
 
