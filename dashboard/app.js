@@ -8,7 +8,7 @@ function iniciarMapa(lat, lng) {
         zoomControl: true,
     }).setView([lat, lng], 16);
 
-    // Tema oscuro de CARTO
+    // Mapa oscuro de Stadia 
     L.tileLayer("https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png", {
         maxZoom: 20,
     }).addTo(mapa);

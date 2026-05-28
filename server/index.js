@@ -7,7 +7,7 @@ const { iniciarMQTT } = require("./mqtt");
 
 const HTTP_PORT = 3000;
 
-// ─── Express ──────────────────────────────────────────────────────────────────
+// Express
 const app    = express();
 const server = http.createServer(app);
 
@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
-// ─── WebSocket ────────────────────────────────────────────────────────────────
+// WebSocket
 const wss = new WebSocketServer({ server });
 
 function broadcast(data) {
@@ -30,10 +30,10 @@ wss.on("connection", (ws) => {
   ws.on("close", () => console.log("🖥️  Dashboard desconectado"));
 });
 
-// ─── MQTT ─────────────────────────────────────────────────────────────────────
+// MQTT 
 iniciarMQTT(broadcast);
 
-// ─── Arrancar servidor ────────────────────────────────────────────────────────
+// Arrancar servidor
 server.listen(HTTP_PORT, () => {
   console.log(`\n🚀 Servidor en http://localhost:${HTTP_PORT}`);
   console.log(`📊 Dashboard: http://localhost:${HTTP_PORT}/index.html`);
